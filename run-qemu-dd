@@ -1,0 +1,44 @@
+#!/bin/sh
+
+OPT_VGA=std
+#OPT_DPY=$2
+#OPT_VGA="qxl -spice port=5930,disable-ticketing -device virtio-serial-pci -device virtserialport,chardev=spicechannel0,name=com.redhat.spice.0 -chardev spicevmc,id=spicechannel0,name=vdagent"
+#OPT_VGA=virtio
+
+OPT_MEM='2048'
+OPT_SMP='2'
+OPT_CPU='qemu64,+ssse3,+sse4.1,+sse4.2,+x2apic'
+
+IMAGE_NAME="agl-demo-platform"
+FS_TYPE="ext4"
+
+MACHINE="qemux86-64"
+export MACHINE
+
+LAUCH_IMAGE_NAME="agl-image-dd.ext4"
+
+cd tmp/deploy/images/qemux86-64
+unlink ${LAUCH_IMAGE_NAME}
+ln -s ${IMAGE_NAME}-${MACHINE}.${FS_TYPE} ${LAUCH_IMAGE_NAME}
+cd ../../../..
+
+#ROOTFS=${IMAGE_NAME}-${MACHINE}.${FS_TYPE}
+ROOTFS=${LAUCH_IMAGE_NAME}
+export ROOTFS
+
+echo $MACHINE
+echo "${IMAGE_NAME}-${MACHINE}.${FS_TYPE} > ${ROOTFS}"
+
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga ${OPT_VGA}" serial kvm
+runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga std" serial kvm 
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga virtio -display sdl,gl=on" serial kvm
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga virtio -display sdl,gl=off" serial kvm
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga virtio,virgl=on -display sdl,gl=off" serial kvm
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga virtio" serial kvm
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -device virtio-vga,virgl=on -spice gl=on,unix,addr=/#run/user/1000/spice.sock" serial kvm
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga virtio,virgl=on -spice addr=/run/user/1000/spice.sock" serial kvm
+#runqemu qemux86-64 qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga virtio,virgl=on" serial kvm
+
+#cd tmp/deploy/images/${MACHINE}
+
+#runqemu bzImage-qemux86-64.bin qemuparams="-m ${OPT_MEM} -usbdevice tablet -cpu ${OPT_CPU} -smp ${OPT_SMP} -vga ${OPT_VGA}" serial kvm
