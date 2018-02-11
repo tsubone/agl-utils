@@ -10,10 +10,18 @@ BRANCH=eel
 AGL_VER=eel_${VER}.xml
 AGL_SETUP_TARGET='agl-demo agl-devel'
 
+WORK_TOP=`pwd`
+
 repo init -b ${BRANCH} -m ${AGL_VER} -u https://gerrit.automotivelinux.org/gerrit/AGL/AGL-repo
 repo sync
 
 export MACHINE=${MACHINE}
+
+mkdir -p $HOME/Downloads
+cd $HOME/Downloads
+cp /home/YOCTO/pkg/renesas/*.zip .
+
+cd $WORK_TOP
 
 source meta-agl/scripts/aglsetup.sh -f -m ${MACHINE} ${AGL_SETUP_TARGET}
 
