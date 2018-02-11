@@ -5,7 +5,7 @@ if [ $# -eq 1 ]; then
     VER=$1
 fi
 
-MACHINE=qemux86-64
+MACHINE=m3ulcb 
 BRANCH=eel
 AGL_VER=eel_${VER}.xml
 AGL_SETUP_TARGET='agl-demo agl-devel'
