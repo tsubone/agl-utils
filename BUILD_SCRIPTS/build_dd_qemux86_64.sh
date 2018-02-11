@@ -1,13 +1,13 @@
 #!/bin/bash
 
-VER=5.0.0
+VER=4.0.3
 if [ $# -eq 1 ]; then
     VER=$1
 fi
 
 MACHINE=qemux86-64
-BRANCH=eel
-AGL_VER=eel_${VER}.xml
+BRANCH=dab
+AGL_VER=dab_${VER}.xml
 AGL_SETUP_TARGET='agl-demo agl-devel'
 
 echo "repo init -b ${BRANCH} -m ${AGL_VER} -u https://gerrit.automotivelinux.org/gerrit/AGL/AGL-repo"
