@@ -19,7 +19,7 @@ export MACHINE=${MACHINE}
 
 mkdir -p $HOME/Downloads
 cd $HOME/Downloads
-cp /home/YOCTO/pkg/renesas/*.zip .
+cp /home/YOCTO/pkg/renesas/v2.23.0/*.zip .
 
 cd $WORK_TOP
 
